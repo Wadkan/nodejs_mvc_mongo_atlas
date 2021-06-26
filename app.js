@@ -13,16 +13,15 @@ app.listen(3000);
 app.get('/', (req, res) => {
     // res.send('<p>home</p>')
     // res.sendFile('./views/index.html', { root: __dirname });
-    res.render('index');
+    res.render('index', { title: 'Home' });
 });
 
 app.get('/about', (req, res) => {
-    res.render('about');
+    res.render('about', { title: 'About' });
 });
 
-// redirect
-app.get('/about-us', (req, res) => {
-    res.redirect('/about');
+app.get('/blogs/create', (req, res) => {
+    res.render('create', { title: 'Create' });
 })
 
 // 404 page - fire only if code reach this part
