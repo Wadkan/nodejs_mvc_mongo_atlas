@@ -2,13 +2,14 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const Blog = require('./models/blog');
+const { render } = require('ejs');
 
 // express app
 const app = express();
 
 // connect to mongoDB
 const dbURI = 'mongodb+srv://mongouser:iy!3kWCvcx4epmv@nodedemo.syaid.mongodb.net/node-demo-db?retryWrites=true&w=majority';
-mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true  })
+mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then((result) => app.listen(3000))
     .catch((err) => console.log(err));
 
@@ -50,7 +51,18 @@ app.post('/blogs', (req, res) => {
         .catch((err) => {
             console.log(err);
         })
-})
+});
+
+app.get('/blogs/:id', (req, res) => {
+    const id = req.params.id;
+    Blog.findById(id)
+        .then(result => {
+            res.render('details', { blog: result, title: 'Blog Details' });
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+});
 
 app.get('/blogs/create', (req, res) => {
     res.render('create', { title: 'Create' });
