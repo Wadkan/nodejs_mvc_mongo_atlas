@@ -11,3 +11,4 @@ To test it, please create a file dbUriFile.txt with the mongoDb atlas dbURI in i
 
 To use it, please run:
 nodemon app
+and open localhost:3000 in the browser
