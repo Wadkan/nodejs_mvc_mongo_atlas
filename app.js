@@ -8,22 +8,15 @@ const app = express();
 // connect to mongoDB
 const dbURI = 'mongodb+srv://mongouser:iy!3kWCvcx4epmv@nodedemo.syaid.mongodb.net/node-demo-db?retryWrites=true&w=majority';
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true  })
-    .then((result) => console.log('connected to db'))
+    .then((result) => app.listen(3000))
     .catch((err) => console.log(err));
-
-
 
 // register view engine
 app.set('view engine', 'ejs');
 
-
-// listen for requests
-app.listen(3000);
-
 // middleware & static files
 app.use(express.static('public'));
 app.use(morgan('dev'));
-
 
 app.get('/', (req, res) => {
     const blogs = [
