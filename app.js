@@ -3,12 +3,15 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const { render } = require('ejs');
 const blogRoutes = require('./routes/blogRoutes');
+const fs = require('fs');
 
 // express app
 const app = express();
 
 // connect to mongoDB
-const dbURI = 'mongodb+srv://mongouser:iy!3kWCvcx4epmv@nodedemo.syaid.mongodb.net/node-demo-db?retryWrites=true&w=majority';
+const dbUriFile = fs.readFileSync('./dbUriFile.txt');
+const dbURI = dbUriFile.toString();
+
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then((result) => app.listen(3000))
     .catch((err) => console.log(err));
